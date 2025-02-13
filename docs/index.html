@@ -1,0 +1,615 @@
+<!<!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>PRDP</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="static/css/academicons.min.css">
+        <link rel="stylesheet" href="static/css/fontawesome.min.css">
+        <script src="static/js/all.min.js"></script>
+        <script src="static/js/bulma-carousel.min.js"></script>
+
+
+        <link rel="stylesheet" href="static/css/style.css">
+        <script src="static/js/script.js"></script>
+    </head>
+
+    <body>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="navbar-menu">
+                <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+                    <a class="navbar-item" href="https://github.com/kanishkbh">
+                        <span class="icon">
+                            <i class="fas fa-home"></i>
+                        </span>
+                    </a>
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            More Research
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="https://ge.in.tum.de/publications/">
+                                TUM Thuerey Group
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+
+        <section class="hero">
+            <div class="hero-body">
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered">
+                        <div class="column has-text-centered">
+                            <h1 class="title is-1 is-size-3-mobile publication-title">Progressively Refined Differentiable Physics</h1>
+                            <h2 class="subtitle is-4 opacity-1" style="margin-top: 1rem;opacity:0.7">ICLR 2025</h2>
+                            <div class="is-size-5 publication-authors">
+                                <span class="author-block">
+                                    <a href="https://github.com/kanishkbh">Kanishk Bhatia</a>,</span>
+                                <span class="author-block">
+                                    <a href="https://fkoehler.site/"> Felix Köhler</a>,</span>
+                                <span class="author-block">
+                                    <a href="https://ge.in.tum.de/about/n-thuerey/">
+                                        Nils Thuerey</a>
+                                </span>
+                            </div>
+
+                            <div class="is-size-5 publication-authors">
+                                <span class="author-block">Technical University of Munich</span>
+                            </div>
+
+                            <div class="column has-text-centered">
+                                <div class="publication-links">
+                                    <!-- PDF Link. -->
+                                    <span class="link-block">
+                                        <a href="https://openreview.net/pdf?id=9Fh0z1JmPU"
+                                            class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="fas fa-file-pdf"></i>
+                                            </span>
+                                            <span>Paper</span>
+                                        </a>
+                                    </span>
+                                    <span class="link-block">
+                                        <a href="https://arxiv.org/"
+                                            class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="ai ai-arxiv"></i>
+                                            </span>
+                                            <span>arXiv</span>
+                                        </a>
+                                    </span>
+                                    <span class="link-block">
+                                        <a href="https://github.com/tum-pbs/"
+                                            class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="fab fa-github"></i>
+                                            </span>
+                                            <span>Code</span>
+                                        </a>
+                                    </span>
+                                    <!-- Dataset Link. -->
+                                    <!-- <span class="link-block">
+                                        <a href="https://huggingface.co/datasets/thuerey-group/apebench-scraped"
+                                            class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="far fa-images"></i>
+                                            </span>
+                                            <span>Dataset</span>
+                                        </a>
+                                    </span> -->
+                                    <!-- Poster Link. -->
+                                    <span class="link-block">
+                                        <a href="https://github.com/tum-pbs/apebench-paper/blob/main/apebench_poster.pdf"
+                                            class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="fas fa-newspaper"></i>
+                                            </span>
+                                            <span>Poster</span>
+                                        </a>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero teaser is-light">
+            <div class="hero-body">
+                <div class="container">
+                    <div id="teaser">
+                        <img src="static/img/teaser_new_transparant.png"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- TL;DR. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">What is PRDP</h2>
+                        <div class="content has-text-justified">
+                            Progressively Refined Differentiable Physics (PRDP) is a method to reduce the computational cost of
+                            learning pipelines (e.g. training of neural networks) that contain expensive 
+                            iterative physics solvers. 
+                            <br>
+                            It works by letting the learning algorithm use 
+                            cheap low-accuracy runs of the physics solver in the beginning, and adaptively refines the physics
+                            as the epochs progress. The method also prevents superfluous refinment of the physics solver, 
+                            based on our observation that full convergence of the physics is not necessary - 
+                            neural emulators, even when trained through incompletely (but sufficiently) converged physics,
+                            perform as well as their counterparts trained through fully-converged physics.
+                            <br>
+                            These two ideas are henceforth referred to as 
+                            <b>P</b>rogressive <b>R</b>efinement (PR) and <b>I</b>ncomplete <b>C</b>onvergence (IC).
+                            <br>
+                            TODO insert PRDP teaser figure from paper.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">But what is Differentiable Physics, and why should I care?</h2>
+                        <div class="content has-text-justified">
+                            Differentiable physics refers to the integration of physics-based models with machine learning frameworks, 
+                            allowing gradients to be computed through physical simulations. 
+                            This enables the use of gradient-based optimization techniques to train models that incorporate physical laws. 
+                            <br>
+                            TODO write successful examples of Diff Physics from paper.
+                            <br>
+                            TODO insert figure of diff physics for correction learning (solver in the loop) from paper.
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section"></section>
+            <div class="container is-max-desktop is-mobile">
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">How does PRDP work?</h2>
+                        <div class="content has-text-justified">
+                            PRDP's working revolves around balancing the compute-accuracy trade-off of the iterative physics solver,
+                            with a twist.
+                            The nuancy is - we care only for the accuracy of the neural network being trained, not the physics solver.
+                            Hence, the physics solver is allowed to run only about as many iterations as are sufficient
+                            to gain a significant training progress in the neural network.
+                            <br>
+                            This throttling of the physics saves significant compute, especially in cases where 
+                            the physics iterations are a compute bottleneck. For instance, our test problem of training a 
+                            neural emulator on a 3D heat equation solver saves about 78% in wall-clock time.
+                            <br>
+                            TODO Insert the flowchart figure from paper.
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Abstract. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Abstract</h2>
+                        <div class="content has-text-justified">
+                            The physics solvers employed for neural network training are primarily iterative, 
+                            and hence, differentiating through them introduces a severe computational
+                            burden as iterations grow large. Inspired by works in bilevel optimization, we
+                            show that full accuracy of the network is achievable through physics significantly
+                            coarser than fully converged solvers. 
+                            We propose <b>P</b>rogressively <b>R</b>efined <b>D</b>ifferentiable <b>P</b>hysics (PRDP), 
+                            an approach that identifies the level of physics refinement
+                            sufficient for full training accuracy. By beginning with coarse physics, adaptively
+                            refining it during training, and stopping refinement at the level adequate for 
+                            training, it enables significant compute savings without sacrificing network accuracy.
+                            Our focus is on differentiating iterative linear solvers for sparsely discretized 
+                            differential operators, which are fundamental to scientific computing. PRDP is 
+                            applicable to both unrolled and implicit differentiation. We validate its performance
+                            on a variety of learning scenarios involving differentiable physics solvers such as
+                            inverse problems, autoregressive neural emulators, and correction-based neural-
+                            hybrid solvers. In the challenging example of emulating the Navier-Stokes equations, 
+                            we reduce training time by 62%.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Rollout Performance. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Focus on Rollout Performance</h2>
+                        <div class="content has-text-justified">
+                            Rather than temporally aggregated metrics, APEBench
+                            always returns rollout errors to understand temporal
+                            generalization. The evaluation can be done in a wide
+                            range of metrics, e.g., classical normalized RMSE
+                            metrics, Fourier-based mectrics for certain
+                            frequency ranges, and Sobolov-based metrics (H1)
+                            that point out mismatches in higher frequencies.
+                        </div>
+                        <div class="content has-text-justified">
+                            <!-- <img src="static/img/ks_test_rollout.webm" style="width: 100%;"/> -->
+                            <video  loop autoplay muted style="width: 100%;">
+                                <source src="static/img/ks_test_rollout.webm" type="video/webm"/>
+                                <!-- <img src="static/img/ks_test_rollout.gif" style="width: 100%;"/> -->
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Difficulties. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Unified PDE identifiers</h2>
+                        <div class="content has-text-justified">
+                            Describing Dynamics with a reduced set of
+                            information creates an exchange protocol that
+                            uniquely identifies an experiment. These
+                            "difficulties" also encode the challenge of neural
+                            emulation by including spatial resolution and
+                            spatial dimensions.
+                        </div>
+                        <div class="content has-text-justified">
+                            For example, in the animation below over
+                            diffusivity, convectivity, and dispersivity we can
+                            describe a wide range of PDEs: Diffusion, Burgers,
+                            Korteweg-de Vries, Dispersion, and
+                            Dispersion-Diffusion.
+                        </div>
+                        <div class="content has-text-justified">
+                            <video  loop autoplay muted style="width: 100%;">
+                                <source src="static/img/difficulty_animation.webm" type="video/webm"/>
+                                <!-- <img src="static/img/difficulty_animation.gif" style="width: 100%;"/> -->
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Unrolled Training. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Built-In Support for Unrolled Training</h2>
+                        <div class="content has-text-justified">
+                            APEBench is built around autoregressive emulation
+                            and hence emphasizes the temporal axis in emulator
+                            learning. This includes the option for unrolled
+                            training (also called
+                            autoregressive/recursive/rollout training). We unify
+                            many approaches in terms of main chain (=unrolled)
+                            length T and branch chain (=reference) length B.
+                        </div>
+                        <div class="column is-centered">
+                            <img src="static/img/unrolled_objective.png" style="width: 100%;"/>
+                        </div>
+                        <div class="content has-text-justified">
+                            One-Step supervised training is T=B=1, while
+                            five-step unrolled training is T=B=5. Branch-one
+                            diverted chain training is T=5, B=1. The latter requires
+                            a differentiable solver, readily available in APEBench.
+                        <div class="content has-text-justified">
+                            <video  loop autoplay muted style="width: 100%;">
+                                <source src="static/img/burgers_training_animation.webm" type="video/webm"/>
+                                <!-- <img src="static/img/burgers_training_animation.gif" style="width: 100%;"/> -->
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Wide Range of Dynamics. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">A wide range of Dynamics</h2>
+                        <div class="content has-text-justified">
+                        Accessible via the reduced difficulty or normalized
+                        interfaces or via a physical interface. Most dynamics
+                        are available in 1D, 2D, and 3D.
+                        </div>
+                        <div class="content has-text-justified">
+                            <table class="table is-striped is-hoverable is-fullwidth is-narrow is-centered" style="text-align: center; font-size: xx-small;">
+                                <tr>
+                                    <th>Difficulty</th>
+                                    <th>Phsical</th>
+                                    <th>Normalized</th>
+                                </tr>
+                                <tr><td>diff_lin            </td><td>phy_poisson         </td><td>norm_lin            </td></tr>
+                                <tr><td>diff_lin_simple     </td><td>phy_sh              </td><td>norm_adv            </td></tr>
+                                <tr><td>diff_adv            </td><td>phy_gs              </td><td>norm_diff           </td></tr>
+                                <tr><td>diff_diff           </td><td>phy_gs_type         </td><td>norm_adv_diff       </td></tr>
+                                <tr><td>diff_adv_diff       </td><td>phy_decay_turb      </td><td>norm_disp           </td></tr>
+                                <tr><td>diff_disp           </td><td>phy_kolm_flow       </td><td>norm_fisher         </td></tr>
+                                <tr><td>diff_hyp_diff       </td><td>phy_lin             </td><td>norm_four           </td></tr>
+                                <tr><td>diff_four           </td><td>phy_lin_simple      </td><td>norm_hypdiff        </td></tr>
+                                <tr><td>diff_conv           </td><td>phy_adv             </td><td>norm_nonlin         </td></tr>
+                                <tr><td>diff_burgers        </td><td>phy_diff            </td><td>norm_conv           </td></tr>
+                                <tr><td>diff_kdv            </td><td>phy_adv_diff        </td><td>norm_burgers        </td></tr>
+                                <tr><td>diff_ks_cons        </td><td>phy_disp            </td><td>norm_kdv            </td></tr>
+                                <tr><td>diff_ks             </td><td>phy_hyp_diff        </td><td>norm_ks_cons        </td></tr>
+                                <tr><td>diff_nonlin         </td><td>phy_four            </td><td>norm_ks             </td></tr>
+                                <tr><td>diff_burgers_sc     </td><td>phy_nonlin          </td><td>norm_burgers_sc     </td></tr>
+                                <tr><td>diff_fisher         </td><td>phy_burgers_sc      </td><td>norm_lin_simple     </td></tr>
+                                <tr><td>                    </td><td>phy_kdv             </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_ks              </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_conv            </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_burgers         </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_ks_cons         </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_poly            </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_fisher          </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_unbal_adv       </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_diag_diff       </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_aniso_diff      </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_mix_disp        </td><td>                    </td></tr>
+                                <tr><td>                    </td><td>phy_mix_hyp         </td><td>                    </td></tr>
+                            </table> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Procedural Data Generation. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Procedural data generation</h2>
+                        <div class="content has-text-justified">
+                            APEBench's embedded pseudo-spectral solver is very
+                            efficient. All training and test data is
+                            procedurally (deterministically) generated
+                            on-the-fly. There is no need to download large
+                            datasets, and the simulator can be embedded into the
+                            training loop for all kinds of differentiable
+                            physics like "solver-in-the-loop" correction setups.
+                        </div>
+                        <div class="content has-text-justified">
+                            <img src="static/img/apebench_slide.png" style="width: 100%;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- APEBench Workflow. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Simplified Study Workflow</h2>
+                        <div class="content has-text-justified">
+                            An APEBench study is a list of dictionaries which
+                            APEBench executes and conviently returns Pandas
+                            dataframes that can be used for statistical
+                            postprocessing (e.g., over random seeds) via Seaborn.
+                        </div>
+                        <div class="content has-text-justified">
+                            <img src="static/img/apebench_workflow.png" style="width: 100%;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Seeds first. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Seed Statistics are a first-class Citizen</h2>
+                        <div class="content has-text-justified">
+                            APEBench inherently supports re-running experiments
+                            with different random seeds (for network
+                            initialization, stochastic minibatching and
+                            optionally also for the procedural data generation).
+                            Seed statistics allow for clearly determining a
+                            superior emulator architecture or learning
+                            methodology based on hypothesis testing. For 1D
+                            scenarios, APEBench can parallelize multiple seeds
+                            on one GPU to obtain seed statistics virtually for
+                            free.
+                        </div>
+                        <div class="content has-text-justified">
+                            <img src="static/img/apebench_seed_workflow.png" style="width: 100%;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Integrated Volume Render. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Integrated Volume Renderer</h2>
+                        <div class="content has-text-justified">
+                            APEBench is accompanied by an efficient
+                            (Rust/WebGPU-based) volume renderer to quickly
+                            visualize 2D and 3D trajectories. <a
+                            href="https://keksboter.github.io/vape4d/">Try it
+                            yourself</a> based on a five-axis NumPy array (time
+                            x channel x space_0 x space_1 x space_2) or <a
+                            href="https://keksboter.github.io/vape4d/?file=https://huggingface.co/datasets/vollautomat/vape4d/resolve/main/gray_scott_3d.npy&colormap=https://huggingface.co/datasets/vollautomat/vape4d/resolve/main/colormap.json">with
+                            precomputed Gray-Scott data</a> (Caution! This
+                            downloads ~100MB for the opened tab).
+                        </div>
+                        <div class="content has-text-justified">
+                            <video  loop autoplay muted style="width: 100%;">
+                                <source src="static/img/volume_render_animation.webm" type="video/webm"/>
+                                <!-- <img src="static/img/volume_render_animation.gif" style="width: 100%;"/> -->
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Relating Emulators with Classical Simulators. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">The Relation between Neural Emulators and Numerical Simulators</h2>
+                        <div class="content has-text-justified">
+                            The fine-grained control over the emulation
+                            scenarios allows for drawing analogies between
+                            neural emulation and classical numerical simulation.
+                            For example, (a) the performance of
+                            convolution-based architectures is bound by their
+                            receptive field and the difficulty (γ₁ = CFL) of the
+                            advection scenario. On the other hand, (a) the
+                            pseudo-spectral FNO architecture is agnostic to
+                            changes in γ₁. (b) For the highest difficulty,
+                            unrolling improves the accuracy of the ResNet.
+                        </div>
+                        <div class="content has-text-justified">
+                            <img src="static/img/adv_experiment_together.png" style="width: 100%;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Neural-Hybrid Emulators. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Benchmark Neural-Hybrid Emulators with Differentiable Physics</h2>
+                        <div class="content has-text-justified">
+                            With the embedded differentiable solver, APEBench
+                            can investigate neural-hybrid correction setups. For
+                            example, if both ResNet and FNO are used either as
+                            full prediction emulators or neural-hybrid emulators
+                            for 2D advection (γ₁=10.5) with a coarse solver
+                            doing 10% or 50% of the difficulty. Training with
+                            unrolling benefits the limited receptive field
+                            ResNet yet only shows marginal improvement for the
+                            FNO. The ResNet can work in symbiosis with a coarse
+                            simulator.
+                        </div>
+                        <div class="content has-text-justified">
+                            <img src="static/img/correction_results.png" style="width: 100%;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Comparison across Architectures and PDE Dynamics. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">A wide range of architectures and PDE dynamics</h2>
+                        <div class="content has-text-justified">
+                            The wide range of PDE dynamics in 1D, 2D, and 3D
+                            allows for drawing further analogies. In the paper,
+                            we investigated a subset of the 46 PDE dynamics.
+                            <!-- The ResNet consistently performs well across
+                            all dynamics and dimensions. Local architectures
+                            struggle with higher-order derivatives, while
+                            limited active modes hinder the FNO's performance in
+                            some cases. The Dilated ResNet is the better
+                            long-range architecture in 1D, whereas the UNet is
+                            better suited for higher dimensions. -->
+                        </div>
+                        <div class="content has-text-justified">
+                            <img src="static/img/broad_comparison.png" style="width: 100%;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <!-- Architecture Decision Tree. -->
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">APEBench's experiments suggest neural architectures</h2>
+                        <div class="content has-text-justified">
+                            Ultimately, with the studies conducted for the
+                            APEBench paper, we can suggest emulator
+                            architectures with the following decision tree.
+                        </div>
+                        <div class="content has-text-justified">
+                            <img src="static/img/architecture_decision_tree.png" style="width: 100%;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+
+        <section class="section" id="BibTeX">
+            <div class="container is-max-desktop content">
+                <h2 class="title">BibTeX</h2>
+                <pre><code>
+@article{koehler2024apebench,
+    title={{APEBench}: A Benchmark for Autoregressive Neural Emulators of {PDE}s},
+    author={Felix Koehler and Simon Niedermayr and R{\"}udiger Westermann and Nils Thuerey},
+    journal={Advances in Neural Information Processing Systems (NeurIPS)},
+    volume={38},
+    year={2024}
+}
+                </code></pre>
+            </div>
+        </section>
+
+
+        <footer class="footer">
+            <div class="container">
+                <div class="content has-text-centered">
+                    <a class="icon-link" href="https://arxiv.org/pdf/2411.00180">
+                        <i class="fas fa-file-pdf"></i>
+                    </a>
+                    <a class="icon-link" href="https://github.com/Ceyron" class="external-link" disabled>
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                <div class="columns is-centered">
+                    <div class="column is-8">
+                        <div class="content">
+                            <p>
+                                Website source code borrowed from <a href="https://keunhong.com">Keunhong Park</a>'s <a
+                                    href="https://github.com/nerfies/nerfies.github.io">Nerfies website</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+
+    </html>
