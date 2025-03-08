@@ -271,17 +271,36 @@
                     <div class="column is-four-fifths">
                         <h2 class="title is-3">How can I use PRDP?</h2>
                         <div class="content has-text-justified">
-                            TODO Write. Insert pseudo code(s) from paper. Ignore following copilot-generated content.
+                            
                             <br>
-                            Using PRDP involves integrating it into your existing machine learning pipeline that includes a physics solver. Here are the steps to get started:
+                            Using PRDP involves integrating it into your existing machine learning pipeline that includes a physics solver. 
+                            Obtain the file <tt>prdp.py</tt> from the code repo. The <tt>should_refine</tt> function implements the PRDP control algorithm 
+                            and needs to be imported in your code.
+                            Here are the steps to get started:
                             <ol>
-                                <li><b>Identify the Physics Solver:</b> Determine the iterative physics solver used in your learning pipeline.</li>
-                                <li><b>Implement Progressive Refinement:</b> Modify the solver to start with low-accuracy runs and progressively refine the accuracy as training progresses.</li>
+                                <li><b>Identify the Physics Solver $\mathcal{P}$ in your learning pipeline.</b> 
+                                    Typically Physics solvers have at their core an iterative fixed-point algorithm $\Phi$. 
+                                    This is the one who's convergence we throttle using PRDP during the learning process.</li>
+                                <li><b>Decide the parameter that determines solver refinement:</b> 
+                                    number of iterations $K$, or tolerance (the arguments called <tt>abstol</tt> and <tt>reltol</tt> in most solver implementations). We use number of iterations in this demonstration.</li>
+                                <li><b>Record Validation metric:</b> 
+                                    Create an array that records the validation loss (or training loss) of the last $\delta$ epochs.
+                                    While training loss can be used, we recommend using the validation loss. 
+                                    Refer <a href="https://arxiv.org/pdf/2502.19611#subsection.G.4">appendix G.4 of the paper</a> for the explanation.</li>
                                 <li><b>Monitor Convergence:</b> Implement a mechanism to monitor the convergence of the physics solver and stop refinement when sufficient accuracy is achieved for training.</li>
-                                <li><b>Integrate with Training Loop:</b> Ensure that the modified solver is integrated seamlessly with your training loop, allowing gradients to flow through the solver.</li>
-                                <li><b>Experiment and Tune:</b> Experiment with different levels of refinement and convergence criteria to find the optimal balance between computational cost and training accuracy.</li>
+                                <li><b>Integrate with Training Loop:</b>
+                                    At the end of the first update step, using the <tt>should_refine</tt> function, determine whether the physics is to be refined.
+                                    If yes, refine the physics by incrementing the number of solver iterations $K$.
+                                    Refer the code below.
+                                    .</li>
+                                <li><b>Experiment and Tune:</b> 
+                                    The parameters <tt>stepping_threshold</tt> and <tt>nmax_threshold</tt> control the speed of progressive refinement
+                                    and the strictness on incomplete convergence, respectively.
+                                    A lower value of <tt>stepping_threshold</tt> enables faster refinement. This leads to potentially lower savings, 
+                                    but can also give faster training progress.
+                                    <!-- A lower value of <tt>nmax_threshold</tt> ... -->
+                                    While the default parameter values are expected to work reasonably well in most cases, the user is encouraged to experiment with different values.</li>
                             </ol>
-                            By following these steps, you can leverage PRDP to reduce the computational cost of training neural networks with physics-based models.
                         </div>
                     </div>
                 </div>
