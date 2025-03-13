@@ -125,12 +125,12 @@
                                     </span> -->
                                     <!-- Poster Link. -->
                                     <span class="link-block">
-                                        <a href="https://github.com/tum-pbs/apebench-paper/blob/main/apebench_poster.pdf"
+                                        <a href="https://www.boredbutton.com/"
                                             class="external-link button is-normal is-rounded is-dark">
                                             <span class="icon">
                                                 <i class="fas fa-newspaper"></i>
                                             </span>
-                                            <span>Poster</span>
+                                            <span>Poster (WIP)</span>
                                         </a>
                                     </span>
                                 </div>
@@ -151,68 +151,50 @@
                 </div>
             </div>
         </section> -->
-
-        <section class="section">
-            <div class="container is-max-desktop is-mobile">
-                <!-- TL;DR. -->
-                <div class="columns is-centered">
-                    <div class="column is-four-fifths">
-                        <h2 class="title is-3">What is PRDP?</h2>
-                        <div class="content has-text-justified">
-                            <b>P</b>rogressively <b>R</b>efined <b>D</b>ifferentiable <b>P</b>hysics (PRDP) is a method to reduce the computational cost of
-                            learning pipelines (e.g. training of neural networks) that contain expensive 
-                            iterative physics solvers. 
-                            <br>
-                            It works by letting the learning algorithm use 
-                            cheap low-accuracy runs of the physics solver in the beginning, and adaptively refines the physics
-                            as the epochs progress. The method also prevents superfluous refinment of the physics solver, 
-                            based on our observation that full convergence of the physics is not necessary - 
-                            neural emulators, even when trained through incompletely (but sufficiently) converged physics,
-                            perform as well as their counterparts trained through fully-converged physics.
-                            <br>
-                            These two ideas are henceforth referred to as 
-                            <b>P</b>rogressive <b>R</b>efinement (PR) and <b>I</b>ncomplete <b>C</b>onvergence (IC).
-                            <br>
-                            <!-- <img src="static/img/teaser_ns_spatial_sep27_time.pdf" alt="PRDP Teaser" style="width: 100%;"/> -->
-                        </div>
-                        <div class="column is-centered">
-                            <img src="static/img/teaser_ns_spatial_sep27_time.png" alt="PRDP Teaser" style="width: 100%;"/>
-                            <p class="caption has-text-centered">Figure 1: <b>PRDP</b> reduces the training time of neural
-                                networks containing numerical solver components (c). The fidelity of iterative components is 
-                                increased only if validation metrics of the network training plateau. This leads to savings by using fewer iterations in the
-                                beginning (<b>PR savings</b> in (b)) and by ending at a refinement level significantly below full fidelity
-                                (<b>IC savings</b> in (b)). The achieved validation error is identical (a).</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="section">
             <div class="container is-max-desktop is-mobile">
                 <div class="columns is-centered">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-5">But what is Differentiable Physics, and why should I care?</h2>
+                        <h1 class="title is-3">What is the problem we aimed to solve?</h1>
+                        <h2 class="title is-5">But first, what is differentiable physics, and why should I care?</h2>
                         <div class="content has-text-justified">
-                            Differentiable physics refers to physics solvers written in frameworks that are autodiff friendly,
-                            thus automatic differentiation frameworks can pass gradients through these solvers. 
-                            This enables the integration of physics-based models in machine learning frameworks, 
-                            allowing gradient-based optimization techniques to train models that incorporate physical laws. 
+                            Differentiable physics refers to physics solvers written in frameworks that are <b>automatic differentiation (autodiff) friendly</b>, i.e.,
+                            using autodiff, we can easily compute Jacobians of these solvers. For the uninitiated - autodiff is the algorithm of gradient computation underlying 
+                            most modern gradient-based optimization, especially neural network training. 
                             <br>
-                            Numerous domains have benefitted from differentiable physics, including:
+                            <br>
+                            Then the big idea is - 
+                            through the  gradient, the learning pipeline "interacts" with the physics of the problem. 
+                            This interaction allows machine learning models that incorporate physical laws (rather than pure data-driven learning).
+
+
+                            <!-- This enables the integration of physics-based models in machine learning frameworks, 
+                            allowing gradient-based optimization techniques to train models that incorporate physical laws.  -->
+                            <br>
+                            <br>
+                            Differentiable physics is but one of the several methods enabling physics-aware models.
+                            Some examples where it has been successful:
                             <ul>
                                 <li>Solving inverse problems (<a href="https://link.springer.com/book/10.1007/978-3-662-05086-6">Bendsoe & Sigmund, 2013)</a></li>
                                 <li>Integrating physical constraints (<a href="https://doi.org/10.1016/j.jcp.2018.10.045">Raissi et al., 2019</a>; <a href="https://doi.org/10.1145/3648506">Li et al., 2024</a></li>
                                 <li>Creating hybrid models that blend classical numerical techniques with learned components (<a href="https://arxiv.org/abs/2007.00016">Um et al., 2020</a>; <a href="https://arxiv.org/abs/2102.01010">Kochkov et al., 2021</a>; <a href="https://arxiv.org/abs/2311.07222">2024</a>)</li>
                             </ul>
+                            
+                        </div>
+                        
+                        <h2 class="title is-5">Differentiable Physics sounds great! What's the problem?</h2>
+                        <div>
+                            Physics solvers are typically iterative. 
+                            Consider a heat diffusion equation, discretized in space using the finite volumes method.
+                            This forms a sparse linear system solved using an iterative solver e.g. Jacobi, GMRES, etc. 
                             <br>
-                            However, repeatedly querying a solver with several iterations in
+                            Repeatedly querying a solver with several iterations in
                             the forward pass - and differentiating through its iterations in the backward pass - 
-                            can introduces a severe computational bottleneck during training.
+                            can introduces a severe computational bottleneck during training. See figure 1.
                         </div>
                         <div class="column is-centered">
                             <img src="static/img/physics_bottleneck.png" alt="solver-in-the-loop physics bottleneck" style="width: 100%;"/>
-                            <p class="caption has-text-centered">Figure 2: 
+                            <p class="caption has-text-centered">Figure 1: 
                                 A typical neural correction-learning pipeline (<a href="https://arxiv.org/abs/2007.00016">Um et al., 2020</a>) 
                                 that uses a differentiable physics solver $\mathcal{P}_K$ in the loop. 
                                 Black arrows show the forward pass, grey dashed arrows represent the backward pass, and elements in red represent 
@@ -227,9 +209,48 @@
 
         <section class="section">
             <div class="container is-max-desktop is-mobile">
+                <!-- TL;DR. -->
                 <div class="columns is-centered">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3">How does PRDP work?</h2>
+                        <h2 class="title is-3">That's a problem! So what is PRDP?</h2>
+                        <div class="content has-text-justified">
+                            We often train models using differentiable physics at our research group, and it's costly!
+                            So, in the summer of 2024, we set out to devise a method that makes this training cheaper (hence, faster)
+                            but doesn't need fancy (read: difficult) method implementations from the user. 
+                            Enter: <b>P</b>rogressively <b>R</b>efined <b>D</b>ifferentiable <b>P</b>hysics (PRDP).
+                            <br>
+                            <br>
+                            PRDP works by letting the learning algorithm use 
+                            cheap low-accuracy runs of the physics solver in the beginning, and adaptively refines the physics
+                            as the epochs progress (1). The method also prevents superfluous refinement of the physics solver, 
+                            based on our observation that full convergence of the physics is not necessary - 
+                            neural emulators, even when trained through incompletely (but sufficiently) converged physics,
+                            perform as well as their counterparts trained through fully-converged physics (2).
+                            <br>
+                            These two ideas - (1) and (2) - are henceforth referred to as 
+                            <b>P</b>rogressive <b>R</b>efinement (PR) and <b>I</b>ncomplete <b>C</b>onvergence (IC).
+                            <br>
+                            <!-- <img src="static/img/teaser_ns_spatial_sep27_time.pdf" alt="PRDP Teaser" style="width: 100%;"/> -->
+                        </div>
+                        <div class="column is-centered">
+                            <img src="static/img/teaser_ns_spatial_sep27_time.png" alt="PRDP Teaser" style="width: 100%;"/>
+                            <p class="caption has-text-centered">Figure 2: <b>PRDP</b> reduces the training time of neural
+                                networks containing numerical solver components (c). The fidelity of iterative components is 
+                                increased only if validation metrics of the network training plateau. This leads to savings by using fewer iterations in the
+                                beginning (<b>PR savings</b> in (b)) and by ending at a refinement level significantly below full fidelity
+                                (<b>IC savings</b> in (b)). The achieved validation error is identical (a).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="container is-max-desktop is-mobile">
+                <div class="columns is-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Sweet! How does PRDP work?</h2>
                         <div class="content has-text-justified">
                             <p>
                                 PRDP's core idea revolves around balancing the compute-accuracy trade-off of iterative physics solvers.
@@ -242,10 +263,13 @@
                                 <b>How much physics refinement is sufficient?</b>  <br>  
                                 We contribute an algorithm that determines physics refinement adaptively 
                                 based on the plateauing of training progress measured on a validation metric.
-                                Training begins with cheap coarse physics. 
-                                When the training progress stagnates, a refinement of the physics is invoked.
-                                However, if the progress has stangated over successive physics refinements, indicating
-                                that further physics refinement would be superfluous, refinement is stopped.
+                                <ul>
+                                    <li>Training begins with cheap coarse physics. </li>
+                                    <li>When the training progress stagnates, a refinement of the physics is invoked.</li>
+                                    <li>If the training progress has stangated over successive physics refinements, indicating
+                                        that further physics refinement would be superfluous, refinement is stopped.</li>
+                                </ul>
+                                
                             </p>
                             <div class="column is-centered"></div>
                                 <img src="static/img/prdp_explainer.png" alt="PRDP Explainer Flowchart" style="width: 100%;"/>
@@ -255,7 +279,7 @@
                             </div>
                             <p>
                                 This throttling of the physics solver saves significant compute, especially in cases where 
-                                the physics iterations are a compute bottleneck. For instance, in our test problem of training a 
+                                 physics represents a high proportion of the training cost. For instance, in our test problem of training a 
                                 neural emulator on a 3D heat equation solver, PRDP saves about 78% in total training time.
                             </p>
 
@@ -269,9 +293,9 @@
             <div class="container is-max-desktop is-mobile">
                 <div class="columns is-centered">
                     <div class="column is-four-fifths">
-                        <h2 class="title is-3">How can I use PRDP?</h2>
+                        <h2 class="title is-3">I'm sold. How can I use PRDP?</h2>
                         <div class="content has-text-justified">
-                            
+                            Be sure to check out the code examples in our <a href="https://github.com/tum-pbs/PRDP/">GitHub repository</a>
                             <br>
                             Using PRDP involves integrating it into your existing machine learning pipeline that includes a physics solver. 
                             Obtain the file <tt>prdp.py</tt> from the code repo. The <tt>should_refine</tt> function implements the PRDP control algorithm 
