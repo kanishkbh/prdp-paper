@@ -219,7 +219,12 @@
                             but doesn't need fancy (read: difficult) method implementations from the user. 
                             Enter: <b>P</b>rogressively <b>R</b>efined <b>D</b>ifferentiable <b>P</b>hysics (PRDP).
                             <br>
-                            <br>
+                        </div>
+                        <div class="column is-centered">
+                            <img src="static/img/prdp_idea.svg" alt="PRDP idea" style="width: 100%; max-width: 500px;"/>
+                            <p class="caption has-text-centered">Figure 2: The PRDP idea.
+                        </div>
+                        <div class="content has-text-justified">
                             PRDP works by letting the learning algorithm use 
                             cheap low-accuracy runs of the physics solver in the beginning, and adaptively refines the physics
                             as the epochs progress (1). The method also prevents superfluous refinement of the physics solver, 
@@ -230,7 +235,6 @@
                             These two ideas - (1) and (2) - are henceforth referred to as 
                             <b>P</b>rogressive <b>R</b>efinement (PR) and <b>I</b>ncomplete <b>C</b>onvergence (IC).
                             <br>
-                            <!-- <img src="static/img/teaser_ns_spatial_sep27_time.pdf" alt="PRDP Teaser" style="width: 100%;"/> -->
                         </div>
                         <div class="column is-centered">
                             <img src="static/img/teaser_ns_spatial_sep27_time.png" alt="PRDP Teaser" style="width: 100%;"/>
@@ -272,7 +276,7 @@
                                 
                             </p>
                             <div class="column is-centered"></div>
-                                <img src="static/img/prdp_explainer.png" alt="PRDP Explainer Flowchart" style="width: 100%;"/>
+                                <img src="static/img/prdp_explainer.svg" alt="PRDP Explainer Flowchart" style="width: 100%;"/>
                                 <p class="caption has-text-centered">Figure 3: 
                                     Left: the typical training progress of a neural network supported by PRDP. 
                                     Right: a simplified flowchart representation of the PRDP control algorithm.</p>
